@@ -1,12 +1,18 @@
 version: '3.8'
 
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:16.2-alpine
-    expose:
-      - 5432
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_DATABASE}
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '10.6.0.1:81:81'
+      - '443:443'
+    networks:
+      - reverse-proxy
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+networks:
+  reverse-proxy:
+    external: yes
