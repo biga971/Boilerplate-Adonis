@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     ports:
       - '80:80'
-      - '10.6.0.1:81:81'
+      - '81:81'
       - '443:443'
     networks:
       - reverse-proxy
